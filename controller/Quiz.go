@@ -6,11 +6,12 @@ import (
 	"log"
 	"math/rand"
 	"os"
-	"server/rakutenapi"
+	"server/config"
 	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/murasame29/rakutenapi"
 )
 
 type ReturnData struct {
@@ -92,7 +93,7 @@ func GetQuiz(c *gin.Context) {
 	}
 
 	requestData := rakutenapi.RakutenSearch{
-		S:        rakutenapi.InitRequest(),
+		S:        config.InitRequest(),
 		Keyword_: c.Query("keyword"),
 		GenreId_: genreId,
 		Hits_:    hits,
