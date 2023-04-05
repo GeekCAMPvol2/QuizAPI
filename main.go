@@ -1,18 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"server/rakutenapi"
+	"server/routes"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	body, err := rakutenapi.InitRequest().RakutenSearch.Get().Keyword("golang").Hits(1).GenreInformationFlag(false).Do()
+	router := gin.New()
+	router.Use(cors.Default())
 
-	if err != nil {
-		log.Panic(err)
-	}
+	routes.QuizRouter(router)
 
-	fmt.Println(body.Items[0])
-	// hogehoge
+	router.Run()
 }
