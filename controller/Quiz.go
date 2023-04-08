@@ -8,6 +8,7 @@ import (
 	"os"
 	"server/config"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -108,6 +109,10 @@ func GetQuiz(c *gin.Context) {
 			"message": fmt.Sprintf("wrong argument type :%s", err),
 		})
 		return
+	}
+
+	for i := range responseData.Items[0].Item.MediumImageUrls {
+		responseData.Items[0].Item.MediumImageUrls[i].ImageURL = strings.ReplaceAll(responseData.Items[0].Item.MediumImageUrls[i].ImageURL, "?_ex=128x128", "")
 	}
 	ReturnData := ReturnData{
 		Quiz:          responseData.Items[0].Item.ItemName,
