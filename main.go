@@ -1,7 +1,7 @@
 package main
 
 import (
-	"server/routes"
+	"serv/routes"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

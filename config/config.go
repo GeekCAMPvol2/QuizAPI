@@ -9,15 +9,11 @@ import (
 )
 
 // 情報を初期化する
-func InitRequest() *rakutenapi.Service {
+func InitRequest(id string) *rakutenapi.Service {
 	var srv rakutenapi.Service
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("エラー！.envファイルが読み込めませんでした")
-	}
-	if len(os.Getenv("APPLICATION_ID")) == 0 {
-		log.Panic("APPLICATION_IDが設定されていません")
-		return nil
 	}
 
 	if len(os.Getenv("AFFILIATE_ID")) == 0 {
@@ -26,9 +22,16 @@ func InitRequest() *rakutenapi.Service {
 		srv.AffiliateId = os.Getenv("AFFILIATE_ID")
 	}
 
-	srv.ApplicationId = os.Getenv("APPLICATION_ID")
+	srv.ApplicationId = loadApplicationId(id)
 	srv.BasePath = "https://app.rakuten.co.jp"
 	srv.RakutenSearch = rakutenapi.NewRakutenSearch(&srv)
 
 	return &srv
+}
+
+func loadApplicationId(id string) string {
+	if len(os.Getenv("APPLICATION_ID_"+id)) == 0 {
+		log.Fatalf("APPLICATION_ID_%sが設定されていません", id)
+	}
+	return os.Getenv("APPLICATION_ID_" + id)
 }

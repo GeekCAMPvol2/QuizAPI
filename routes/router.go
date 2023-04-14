@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"server/controller"
+	"serv/controller"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,7 +12,6 @@ func QuizRouter(router *gin.Engine) {
 	// =クエリパラメタ=
 	// keyword : キーワードを設定して検索できる。UTF-8でエンコードした文字列
 	// genreid : 楽天市場におけるジャンルを検索するためのID
-	// hits    : 返す問題の数を設定できる
 	// page    : 楽天検索からページを設定できる
 	// sort	   : 0~6で設定可能
 	//		0 : 楽天標準ソート <- default
