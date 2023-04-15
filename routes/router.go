@@ -22,4 +22,6 @@ func QuizRouter(router *gin.Engine) {
 	//		5 : 満足順（降順）
 	//		6 : 満足順（昇順）
 	router.GET("/quiz", controller.GetQuiz)
+	router.GET("/quizlake", controller.GetQuizLake)
+	router.GET("/all", controller.GetAll)
 }

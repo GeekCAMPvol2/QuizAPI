@@ -4,17 +4,12 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/murasame29/rakutenapi"
 )
 
 // 情報を初期化する
 func InitRequest(id string) *rakutenapi.Service {
 	var srv rakutenapi.Service
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("エラー！.envファイルが読み込めませんでした")
-	}
 
 	if len(os.Getenv("AFFILIATE_ID")) == 0 {
 		log.Println("AFFILIATE_IDは設定されていません。")
