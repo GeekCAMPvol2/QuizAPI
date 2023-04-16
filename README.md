@@ -31,7 +31,7 @@ go build -o serve
 ## API reference
 
 GET  /quiz
-
+リアルタイムでRakutenから取得する
 ### パラメータ
 
 |Query|Detail|
@@ -39,6 +39,7 @@ GET  /quiz
 |keyword|キーワードで絞って検索する|
 |genreid|ジャンルIDで絞って検索する|
 |page|楽天検索のページを設定|
+|hits|取得件数|
 |sort|以下省略|
 
 
@@ -53,4 +54,12 @@ GET  /quiz
 |5|満足順（降順|
 |6|満足順（昇順）|
 
+GET /quizlake
+Mongoに貯めているデータを取得する
+
+### パラメータ
+
+|Query|Detail|
+|----|----|
+|hits|取得件数|
 
