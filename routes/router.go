@@ -21,7 +21,7 @@ func QuizRouter(router *gin.Engine) {
 	//		4 : 売上順(昇順)
 	//		5 : 満足順（降順）
 	//		6 : 満足順（昇順）
-	router.GET("/quiz", controller.GetQuiz)
+	router.GET("/quiz", controller.GetQuiztemp)
 	router.GET("/quizlake", controller.GetQuizLake)
 	router.GET("/all", controller.GetAll)
 }

@@ -97,8 +97,9 @@ func GetQuiz(c *gin.Context) {
 		randflag   bool = false
 		hits       int  = 1
 		returnData []models.ReturnData
+		retflag    bool = false
 	)
-	if len(c.Query("hits")) == 0 {
+	if len(c.Query("hits")) == 0 || len(c.Query("hits")) == 1 {
 		hits = 1
 	} else {
 		h, err := strconv.Atoi(c.Query("hits"))
@@ -116,6 +117,7 @@ func GetQuiz(c *gin.Context) {
 			})
 			return
 		}
+		retflag = true
 	}
 
 	//整数が入力されたかの確認
@@ -153,12 +155,21 @@ func GetQuiz(c *gin.Context) {
 			GenreId_: genreId,
 		}
 	}
+
 	returnData, err = moldData(rakutenRequest(randflag, requestData, hits))
 
 	for err != nil {
 		returnData, err = moldData(rakutenRequest(randflag, requestData, hits))
+		fmt.Println(err)
+		time.Sleep(time.Second * 1)
 	}
-	c.JSON(200, returnData[0])
+
+	if retflag {
+		c.JSON(200, returnData)
+	} else {
+		c.JSON(200, returnData[0])
+	}
+
 }
 
 // データを成形する
@@ -203,6 +214,28 @@ func GetQuizLake(c *gin.Context) {
 	}
 	data := db.Mainfind(hits)
 	c.JSON(200, data)
+}
+
+func GetQuiztemp(c *gin.Context) {
+	var hits int
+
+	if len(c.Query("hits")) == 0 || len(c.Query("hits")) == 1 {
+		hits = 1
+		data := db.Mainfind(hits)
+		c.JSON(200, data[0])
+	} else {
+		h, err := strconv.Atoi(c.Query("hits"))
+		hits = h
+		if err != nil {
+			c.JSON(400, gin.H{
+				"message": fmt.Sprintf("wrong argument type :%s", err),
+			})
+			return
+		}
+		data := db.Mainfind(hits)
+		c.JSON(200, data)
+	}
+
 }
 
 func GetAll(c *gin.Context) {

@@ -1,4 +1,4 @@
-module serv
+module github.com/GeekCAMPvol2/QuizAPI
 
 go 1.20
 
