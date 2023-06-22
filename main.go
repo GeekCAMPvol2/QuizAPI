@@ -14,7 +14,7 @@ func main() {
 	if err != nil {
 		log.Fatal("app.envファイルが読み込めませんでした")
 	}
-	coll := db.NewClient(config.MongoDBUri)
+	coll := db.NewClient(config.MongoTestUri)
 
 	if err != nil {
 		log.Fatal("Mongo Connection Error :", err)
