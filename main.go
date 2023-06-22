@@ -2,23 +2,25 @@ package main
 
 import (
 	"log"
-	"serv/routes"
 
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
+	"github.com/GeekCAMPvol2/QuizAPI/api"
+	"github.com/GeekCAMPvol2/QuizAPI/db"
+	"github.com/GeekCAMPvol2/QuizAPI/util"
 )
 
 func main() {
+	config, err := util.Loadenv(".")
 
-	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("エラー！.envファイルが読み込めませんでした")
+		log.Fatal("app.envファイルが読み込めませんでした")
+	}
+	coll := db.NewClient(config.MongoDBUri)
+
+	if err != nil {
+		log.Fatal("Mongo Connection Error :", err)
 	}
 
-	router := gin.New()
-	router.Use(cors.Default())
-
-	routes.QuizRouter(router)
-	router.Run()
+	if err := api.NewServer(coll).Start(config.ServerAddress); err != nil {
+		log.Fatal(err)
+	}
 }
