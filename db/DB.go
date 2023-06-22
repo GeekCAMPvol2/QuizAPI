@@ -47,9 +47,9 @@ func ConnectDB(uri string) *mongo.Client {
 
 // 任意数のデータを取得する
 func (client *Client) GetQuiz(size int64) (returnData []models.ReturnData, err error) {
-	limitStage := bson.D{{"$limit", size}}
+	pipeline := []bson.D{bson.D{{"$sample", bson.D{{"size", size}}}}}
 
-	cursor, err := client.coll.Aggregate(context.TODO(), mongo.Pipeline{limitStage})
+	cursor, err := client.coll.Aggregate(context.TODO(), pipeline)
 
 	if err != nil {
 		return nil, err
