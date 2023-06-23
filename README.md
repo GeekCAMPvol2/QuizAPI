@@ -36,5 +36,4 @@ GET  /quiz
 
 |Query|Detail|
 |----|----|
-<<<<<<< HEAD
 |hits|取得問題数を指定する 1~10|
