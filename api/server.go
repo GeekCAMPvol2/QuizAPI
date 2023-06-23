@@ -32,9 +32,13 @@ func NewServer(conn *db.Client) *Server {
 			AllowCredentials: false,
 			MaxAge:           24 * time.Hour,
 		}))
-	router.GET("/quiz", server.getQuiz)
 	server.router = router
+	quizRotuer(server)
 	return server
+}
+
+func quizRotuer(server *Server) {
+	server.router.GET("/quiz", server.getQuiz)
 }
 
 // サーバを開始する
